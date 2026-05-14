@@ -47,7 +47,7 @@ cmake --build build
 ### Run the main demo:
 
 ```bash
-./build/tt_promise_demo
+./build/promise_demo
 ```
 
 ## Examples
