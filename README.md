@@ -199,11 +199,10 @@ cmake -S . -B build \
 
 ## Requirements
 
-- C++23 compiler (GCC 14+, Clang 17+)
-- CMake 3.20+
-- Conan 2.x (recommended)
-- vcpkg (optional)
-- Git (for dependency fetching fallback)
+- `C++23` compiler (GCC 14+, Clang 17+, MSVC 19.36+).
+- `CMake 3.20+`.
+- `Conan 2.x` or `vcpkg` (optional, for dependency management).
+- `Git` access if CMake needs to fetch **build_tools** or **cpp_utils** automatically.
 
 ## Package Manager Compatibility
 
