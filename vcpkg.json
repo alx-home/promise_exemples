@@ -1,0 +1,7 @@
+{
+	"name": "promise-exemples",
+	"version": "1.0.0",
+	"dependencies": [
+		"alx-promise"
+	]
+}

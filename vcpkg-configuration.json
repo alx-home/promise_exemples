@@ -1,0 +1,18 @@
+{
+   "default-registry": {
+      "kind": "builtin",
+      "baseline": "99a97de2cb371449d4fb9dc970f2ac562d689ec2"
+   },
+   "registries": [
+      {
+         "kind": "git",
+         "repository": "https://github.com/alx-home/vcpkg-registry.git",
+         "baseline": "48afc6c31f7377bd3d95266db27f75d1350c3e12",
+         "packages": [
+            "alx-build-tools",
+            "alx-cpp-utils",
+            "alx-promise"
+         ]
+      }
+   ]
+}

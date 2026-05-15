@@ -12,6 +12,8 @@ Comprehensive C++23 project demonstrating all features of the [alx-home/promise]
 ```
 .
 ├── CMakeLists.txt               # Main build configuration
+├── cmake/
+│   └── resolve_alx_promise.cmake # Dependency resolver (vcpkg/package or FetchContent)
 ├── README.md                    # This file
 ├── src/
 │   └── main.cpp                 # Quick-start demo
@@ -42,6 +44,32 @@ A modern C++23 promise library inspired by JavaScript promises, with:
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
 cmake --build build
+```
+
+### Dependency resolution behavior
+
+This project resolves `alx-home::promise` with the following order:
+
+1. `find_package(alx-promise CONFIG QUIET)` (package manager/toolchain path)
+2. Fallback to `FetchContent` from `https://github.com/alx-home/promise.git` (`release` tag)
+
+The logic is implemented in:
+
+- `cmake/resolve_alx_promise.cmake`
+
+During configure, you will see one of these messages:
+
+- `[promise_examples] Found alx-home::promise via package manager`
+- `[promise_examples] alx-promise package not found; using FetchContent`
+
+If fallback is used, CMake also prints the exact repository and tag being fetched.
+
+You can override fallback source from the command line:
+
+```bash
+cmake -S . -B build \
+  -DALX_PROMISE_GIT_REPOSITORY=https://github.com/alx-home/promise.git \
+  -DALX_PROMISE_GIT_TAG=release
 ```
 
 ### Run the main demo:
@@ -155,7 +183,18 @@ cmake -S . -B build \
 
 - C++23 compiler (GCC 14+, Clang 17+)
 - CMake 3.20+
-- Git (for dependency fetching)
+- Git (for dependency fetching fallback)
+
+## vcpkg Compliance
+
+This repository is **vcpkg compliant**.
+
+- It supports standard vcpkg manifest workflows via `vcpkg.json`.
+- It supports standard CMake package resolution with:
+  - `find_package(alx-promise CONFIG QUIET)`
+  - `target_link_libraries(<target> PRIVATE alx-home::promise)`
+- When CMake is configured with a vcpkg toolchain and matching triplet, the package-manager path is used directly.
+- If the package is not available through the active package-manager context, the project falls back to `FetchContent` so builds remain reproducible.
 
 ## Next Steps
 
