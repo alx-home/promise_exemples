@@ -1,6 +1,5 @@
 [requires]
 alx-promise/1.6.0
-alx-cpp-utils/1.1.0
 
 [generators]
 CMakeDeps
