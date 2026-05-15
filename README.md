@@ -13,7 +13,8 @@ Comprehensive C++23 project demonstrating all features of the [alx-home/promise]
 .
 ├── CMakeLists.txt               # Main build configuration
 ├── cmake/
-│   └── resolve_alx_promise.cmake # Dependency resolver (vcpkg/package or FetchContent)
+│   └── resolve_alx_promise.cmake # Dependency resolver (Conan/vcpkg then FetchContent)
+├── conanfile.txt                # Conan dependency manifest
 ├── README.md                    # This file
 ├── src/
 │   └── main.cpp                 # Quick-start demo
@@ -41,6 +42,23 @@ A modern C++23 promise library inspired by JavaScript promises, with:
 
 ### Build all examples:
 
+### Using Conan:
+
+```bash
+conan install . -s build_type=Debug --build=missing
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake
+cmake --build build
+```
+
+### Using vcpkg:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=path\to\vcpkg\scripts\buildsystems\vcpkg.cmake
+cmake --build build
+```
+
+### Using CMake with FetchContent fallback:
+
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
 cmake --build build
@@ -50,7 +68,7 @@ cmake --build build
 
 This project resolves `alx-home::promise` with the following order:
 
-1. `find_package(alx-promise CONFIG QUIET)` (package manager/toolchain path)
+1. `find_package(alx-promise CONFIG QUIET)` from the active package manager/toolchain (Conan or vcpkg)
 2. Fallback to `FetchContent` from `https://github.com/alx-home/promise.git` (`release` tag)
 
 The logic is implemented in:
@@ -183,18 +201,21 @@ cmake -S . -B build \
 
 - C++23 compiler (GCC 14+, Clang 17+)
 - CMake 3.20+
+- Conan 2.x (recommended)
+- vcpkg (optional)
 - Git (for dependency fetching fallback)
 
-## vcpkg Compliance
+## Package Manager Compatibility
 
-This repository is **vcpkg compliant**.
+This repository supports **Conan** and **vcpkg**.
 
-- It supports standard vcpkg manifest workflows via `vcpkg.json`.
-- It supports standard CMake package resolution with:
+- Conan manifest workflow via `conanfile.txt`
+- vcpkg manifest workflow via `vcpkg.json`
+- Standard CMake package resolution with:
   - `find_package(alx-promise CONFIG QUIET)`
   - `target_link_libraries(<target> PRIVATE alx-home::promise)`
-- When CMake is configured with a vcpkg toolchain and matching triplet, the package-manager path is used directly.
-- If the package is not available through the active package-manager context, the project falls back to `FetchContent` so builds remain reproducible.
+- When `alx-promise` is unavailable from package managers, FetchContent fallback keeps the build reproducible.
+
 
 ## Next Steps
 
