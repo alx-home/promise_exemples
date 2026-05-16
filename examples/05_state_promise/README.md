@@ -6,59 +6,71 @@ Demonstrates `StatePromise` - a state-machine style primitive for coordinating c
 
 - Creating and using `StatePromise` for state-machine coordination
 - `WaitReady()` - wait until Ready is signaled
-- `WaitDone()` - wait until Done is signaled
-- `Wait()` - wait for either Ready or Done
-- `IsDone()` - check if Done state has been reached
+- `Wait()` - wait until either Ready or Done is signaled
+- `WaitDone()` - wait until Done is signaled (resolve path)
+- `WaitWithReject()` / `WaitDoneWithReject()` - reject with `StatePromise::End` on Done
 - `Reset()` - prepare for another cycle
-- Coordinating multiple workers with single state transitions
 
 ## Key Concepts
 
-- `StatePromise` combines two `CVPromise` signals: Ready and Done
-- Perfect for producer/consumer and worker coordination patterns
-- `Ready()` is non-terminal; `Done()` is terminal and final
-- `Reset()` prepares the state for another Ready/Done cycle
-- Destroying `StatePromise` implicitly calls `Done()`
-- Useful in thread pools, work distribution, and lifecycle management
+- `StatePromise` combines two signals: Ready and Done
+- `Ready()` is non-terminal; `Done()` is terminal for the current cycle
+- `WaitDone()` resolves on Done
+- `WaitDoneWithReject()` throws `StatePromise::End` on Done
+- `Wait()` resolves on whichever happens first: Ready or Done
+- `Reset()` prepares the state for reuse across multiple cycles
 
 ## Run
 
 ```bash
-cd /home/sleeper/workspace/tt
 cmake --build build --target example_05_state_promise
-./build/examples/05_state_promise/example_05_state_promise
+./build/example_05_state_promise
+```
+
+On Windows (PowerShell), run:
+
+```powershell
+cmake --build build --target example_05_state_promise
+.\build\example_05_state_promise.exe
 ```
 
 ## Expected Output
 
-```
-=== Basic StatePromise Example ===
-Worker: Waiting for Ready...
-Coordinator: Sending Ready
-Worker: Ready signal received, starting work
-Worker: Waiting for Done...
-Coordinator: Sending Done
-Worker: Done signal received, exiting
-Is Done? 1
+```text
+=== WaitReady + WaitDone (resolve path) ===
+Worker: Waiting for Ready
+Coordinator: Ready()
+Worker: Ready received
+Worker: Waiting for Done via WaitDone()
+Coordinator: Done()
+Worker: Done received (resolved)
 
-=== Wait Any State Example ===
-Waiter: Waiting for Ready or Done
-Coordinator: Signaling Ready
-Waiter: Received either Ready or Done
-Waiter: Now wait specifically for Done
-Coordinator: Signaling Done
-Waiter: Done was signaled
+=== Wait (ready OR done) ===
+Waiter: Waiting with Wait()
+Coordinator: Ready() first
+Waiter: Wait() completed
+Waiter: Waiting for terminal Done with WaitDone()
+Coordinator: Done() second
+Waiter: Done received
 
-=== Multiple Workers Example ===
-...
-Coordinator: Signaling Ready to all
-Worker 1: Starting
-Worker 2: Starting
-Worker 3: Starting
-...
-Coordinator: Signaling Done to all
-Worker 1: Finished
-Worker 2: Finished
-Worker 3: Finished
-Workers started: 3, Finished: 3
+=== WaitWithReject + WaitDoneWithReject (exception path) ===
+Waiter: Waiting with WaitWithReject()
+Coordinator: Ready()
+Waiter: Ready happened before Done
+Waiter: Waiting with WaitDoneWithReject()
+Coordinator: Done()
+Waiter: Caught StatePromise::End on Done
+
+=== Reset across two cycles ===
+Cycle 0: WaitReady()
+Coordinator: Ready() for cycle 0
+Cycle 0: WaitDone()
+Coordinator: Done() for cycle 0
+Cycle 0: completed
+Cycle 0: Reset()
+Cycle 1: WaitReady()
+Coordinator: Ready() for cycle 1
+Cycle 1: WaitDone()
+Coordinator: Done() for cycle 1
+Cycle 1: completed
 ```
