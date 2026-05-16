@@ -7,7 +7,7 @@
       {
          "kind": "git",
          "repository": "https://github.com/alx-home/vcpkg-registry.git",
-         "baseline": "48afc6c31f7377bd3d95266db27f75d1350c3e12",
+         "baseline": "d83225a7783d45ebab63db49a62ad0bf966fe661",
          "packages": [
             "alx-build-tools",
             "alx-cpp-utils",
