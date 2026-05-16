@@ -52,6 +52,8 @@ cmake --build build
 
 ### Using vcpkg:
 
+The custom registry used for this package is github.com/alx-home/vcpkg-registry.
+
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=path\to\vcpkg\scripts\buildsystems\vcpkg.cmake
 cmake --build build
