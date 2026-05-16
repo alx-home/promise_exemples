@@ -50,6 +50,27 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/
 cmake --build build
 ```
 
+### Using Conan with both Promise variants (memcheck OFF/ON):
+
+This repository supports two Debug package variants of `alx-promise`.
+
+1. Generate and build **Debug without memcheck**:
+
+```bash
+conan install . -s build_type=Debug -o alx-promise/*:memcheck=False -o alx-promise/*:memcheck_full=False --build=missing
+cmake --preset conan-debug
+cmake --build --preset conan-debug
+```
+
+2. Generate and build **Debug with memcheck**:
+
+```bash
+conan install . -s build_type=Debug -o alx-promise/*:memcheck=True -o alx-promise/*:memcheck_full=True --build=missing
+cmake --preset conan-debug
+cmake --build --preset conan-debug
+```
+
+
 ### Using vcpkg:
 
 The custom registry used for this package is github.com/alx-home/vcpkg-registry.
