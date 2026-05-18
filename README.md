@@ -1,11 +1,11 @@
 
 <p align="center">
-	<img src="https://github.com/alx-home/promise/raw/master/.github/logo.svg" alt="alx-home promise logo" width="560">
+	<img src="https://github.com/alx-home/JSProCpp/raw/master/.github/logo.svg" alt="alx-home JSProCpp logo" width="560">
 </p>
 
-# alx-home/promise Examples
+# alx-home/JSProCpp Examples
 
-Comprehensive C++23 project demonstrating all features of the [alx-home/promise](https://github.com/alx-home/promise) library through runnable examples.
+Comprehensive C++23 project demonstrating all features of the [alx-home/JSProCpp](https://github.com/alx-home/JSProCpp) library through runnable examples.
 
 ## Repository Structure
 
@@ -27,7 +27,7 @@ Comprehensive C++23 project demonstrating all features of the [alx-home/promise]
     └── 06_thread_pool/          # Pool<> and MessageQueue for threading
 ```
 
-## What is alx-home/promise?
+## What is alx-home/JSProCpp?
 
 A modern C++23 promise library inspired by JavaScript promises, with:
 - **JS-style API**: `Then`, `Catch`, `Finally`, chaining
@@ -109,7 +109,7 @@ You can override fallback source from the command line:
 
 ```bash
 cmake -S . -B build \
-  -DALX_PROMISE_GIT_REPOSITORY=https://github.com/alx-home/promise.git \
+  -DALX_PROMISE_GIT_REPOSITORY=https://github.com/alx-home/JSProCpp.git \
   -DALX_PROMISE_GIT_TAG=release
 ```
 
@@ -245,8 +245,8 @@ This repository supports **Conan** and **vcpkg**.
 2. **Explore examples in order** (01 → 06) for progressive complexity
 3. **Read the README in each example folder** for detailed explanations
 4. **Examine the source code** — comments explain key concepts
-5. **Refer to the official README**: https://github.com/alx-home/promise/blob/master/README.md
+5. **Refer to the official README**: https://github.com/alx-home/JSProCpp/blob/master/README.md
 
 ## License
 
-This example repository demonstrates [alx-home/promise](https://github.com/alx-home/promise) under its original license.
+This example repository demonstrates [alx-home/JSProCpp](https://github.com/alx-home/JSProCpp) under its original license.
