@@ -13,7 +13,7 @@ Comprehensive C++23 project demonstrating all features of the [alx-home/JSProCpp
 .
 ├── CMakeLists.txt               # Main build configuration
 ├── cmake/
-│   └── resolve_alx_promise.cmake # Dependency resolver (Conan/vcpkg then FetchContent)
+│   └── resolve_jsprocpp.cmake    # Dependency resolver (Conan/vcpkg then FetchContent)
 ├── conanfile.txt                # Conan dependency manifest
 ├── README.md                    # This file
 ├── src/
@@ -89,19 +89,20 @@ cmake --build build
 
 ### Dependency resolution behavior
 
-This project resolves `alx-home::promise` with the following order:
+This project resolves `alx-home::jsprocpp` with the following order:
 
-1. `find_package(alx-promise CONFIG QUIET)` from the active package manager/toolchain (Conan or vcpkg)
-2. Fallback to `FetchContent` from `https://github.com/alx-home/promise.git` (`release` tag)
+1. `find_package(jsprocpp CONFIG QUIET)` from the active package manager/toolchain (Conan or vcpkg)
+2. Compatibility fallback: `find_package(alx-promise CONFIG QUIET)` with target remapping to `alx-home::jsprocpp`
+3. Source fallback via `FetchContent` from `https://github.com/alx-home/JSProCpp.git` (`release` tag)
 
 The logic is implemented in:
 
-- `cmake/resolve_alx_promise.cmake`
+- `cmake/resolve_jsprocpp.cmake`
 
 During configure, you will see one of these messages:
 
-- `[promise_examples] Found alx-home::promise via package manager`
-- `[promise_examples] alx-promise package not found; using FetchContent`
+- `[promise_examples] Found alx-home::jsprocpp via package manager`
+- `[promise_examples] alx-home::jsprocpp package not found; using FetchContent`
 
 If fallback is used, CMake also prints the exact repository and tag being fetched.
 
@@ -109,14 +110,14 @@ You can override fallback source from the command line:
 
 ```bash
 cmake -S . -B build \
-  -DALX_PROMISE_GIT_REPOSITORY=https://github.com/alx-home/JSProCpp.git \
-  -DALX_PROMISE_GIT_TAG=release
+  -DJSPROCPP_GIT_REPOSITORY=https://github.com/alx-home/JSProCpp.git \
+  -DJSPROCPP_GIT_TAG=release
 ```
 
 ### Run the main demo:
 
 ```bash
-./build/promise_demo
+./build/JSProCpp_demo
 ```
 
 ## Examples
@@ -234,9 +235,9 @@ This repository supports **Conan** and **vcpkg**.
 - Conan manifest workflow via `conanfile.txt`
 - vcpkg manifest workflow via `vcpkg.json`
 - Standard CMake package resolution with:
-  - `find_package(alx-promise CONFIG QUIET)`
-  - `target_link_libraries(<target> PRIVATE alx-home::promise)`
-- When `alx-promise` is unavailable from package managers, FetchContent fallback keeps the build reproducible.
+  - `find_package(jsprocpp CONFIG QUIET)`
+  - `target_link_libraries(<target> PRIVATE alx-home::jsprocpp)`
+- When package managers do not provide `jsprocpp`, a compatibility fallback to `alx-promise` is applied, then FetchContent keeps the build reproducible.
 
 
 ## Next Steps
