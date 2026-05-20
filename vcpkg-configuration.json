@@ -7,11 +7,11 @@
       {
          "kind": "git",
          "repository": "https://github.com/alx-home/vcpkg-registry.git",
-         "baseline": "d83225a7783d45ebab63db49a62ad0bf966fe661",
+         "baseline": "7eefc58d6b9f2f010842cb2815471bbb4667525f",
          "packages": [
             "alx-build-tools",
             "alx-cpp-utils",
-            "alx-promise"
+            "jsprocpp"
          ]
       }
    ]

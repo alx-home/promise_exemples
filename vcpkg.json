@@ -2,12 +2,12 @@
 	"name": "promise-exemples",
 	"version": "1.0.0",
 	"dependencies": [
-		"alx-promise"
+		"jsprocpp"
 	],
 	"overrides": [
 		{
-			"name": "alx-promise",
-			"version": "1.6.2#1"
+			"name": "jsprocpp",
+			"version": "1.6.3#2"
 		}
 	]
 }
