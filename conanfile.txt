@@ -1,5 +1,5 @@
 [requires]
-alx-promise/1.6.2
+jsprocpp/1.6.3
 
 [generators]
 CMakeDeps

@@ -6,17 +6,17 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-include(${CMAKE_CURRENT_LIST_DIR}/cmake/resolve_alx_promise.cmake)
-resolve_alx_promise_dependency()
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/resolve_jsprocpp.cmake)
+resolve_jsprocpp_dependency()
 
 # Main demo executable
-add_executable(promise_demo
+add_executable(JSProCpp_demo
     src/main.cpp
 )
 
-target_link_libraries(promise_demo
+target_link_libraries(JSProCpp_demo
     PRIVATE
-        alx-home::promise
+        alx-home::jsprocpp
 )
 
 # Example 1: Basic Chain
@@ -26,7 +26,7 @@ add_executable(example_01_basic_chain
 
 target_link_libraries(example_01_basic_chain
     PRIVATE
-        alx-home::promise
+        alx-home::jsprocpp
 )
 
 # Example 2: Resolver Style
@@ -36,7 +36,7 @@ add_executable(example_02_resolver_style
 
 target_link_libraries(example_02_resolver_style
     PRIVATE
-        alx-home::promise
+        alx-home::jsprocpp
 )
 
 # Example 3: All and Race
@@ -46,7 +46,7 @@ add_executable(example_03_all_and_race
 
 target_link_libraries(example_03_all_and_race
     PRIVATE
-        alx-home::promise
+        alx-home::jsprocpp
 )
 
 # Example 4: CVPromise
@@ -56,7 +56,7 @@ add_executable(example_04_cv_promise
 
 target_link_libraries(example_04_cv_promise
     PRIVATE
-        alx-home::promise
+        alx-home::jsprocpp
 )
 
 # Example 5: StatePromise
@@ -66,7 +66,7 @@ add_executable(example_05_state_promise
 
 target_link_libraries(example_05_state_promise
     PRIVATE
-        alx-home::promise
+        alx-home::jsprocpp
 )
 
 # Example 6: Thread Pool
@@ -76,5 +76,5 @@ add_executable(example_06_thread_pool
 
 target_link_libraries(example_06_thread_pool
     PRIVATE
-        alx-home::promise
+        alx-home::jsprocpp
 )

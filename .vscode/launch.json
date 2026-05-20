@@ -5,6 +5,16 @@
    "version": "0.2.0",
    "configurations": [
       {
+         "name": "(Windows) Launch JSProCpp Demo",
+         "type": "cppvsdbg",
+         "request": "launch",
+         "program": "${command:cmake.buildDirectory}/JSProCpp_demo.exe",
+         "args": [],
+         "stopAtEntry": false,
+         "cwd": "${workspaceFolder}",
+         "console": "integratedTerminal"
+      },
+      {
          "name": "(Windows) Launch Basic Chain Exemple",
          "type": "cppvsdbg",
          "request": "launch",
